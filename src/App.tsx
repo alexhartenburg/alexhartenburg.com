@@ -1,14 +1,10 @@
-import Navigation from "./components/Navigation"
+import Background from "./components/Background/Background";
 
 function App() {
 
   return (
     <>
-      <Navigation />
-      <div>
-        <h1>Alex Hartenburg</h1>
-        <p>Test</p>
-      </div>
+      <Background />
     </>
   )
 }
