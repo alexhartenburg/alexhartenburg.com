@@ -1,7 +1,7 @@
 import { BlurContainer, Glow, SilhouetteContainer, SilhouetteRowFirst, SilhouetteRow, SilhouetteRowLast, Silhouette } from "./Background_styled"
 
 const Background = () => {
-    const size = 100;
+    const size = 120;
     const density = 5;
     const returnSilhouettes = (x:number) => {
         let arr = [];
