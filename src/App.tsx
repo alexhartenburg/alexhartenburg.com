@@ -1,10 +1,10 @@
+import Background from "./components/Background/Background";
+
 function App() {
 
   return (
     <>
-      <div>
-        <h1>Alex Hartenburg</h1>
-      </div>
+      <Background />
     </>
   )
 }
