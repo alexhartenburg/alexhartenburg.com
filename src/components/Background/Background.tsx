@@ -1,10 +1,22 @@
+import { Palette } from '@mui/material';
 import { useState, useEffect } from 'react';
 import styled, { keyframes }  from 'styled-components';
 
-const glowAnimation = (props: string) => keyframes`
-    0% { background: #222; }
-    20% { background-color: ${props}; }
-    100% { background-color: #222; }
+const colorSpeed = 45;
+const positionSpeed = 60;
+const opacitySpeed = 40;
+
+const glowAnimation = (colors: Palette) => keyframes`
+    10% { background-color: ${colors.primary.dark}; }
+    20% { background-color: ${colors.warning.main}; }
+    30% { background-color: ${colors.primary.light}; }
+    40% { background-color: ${colors.error.main}; }
+    50% { background-color: ${colors.primary.main}; }
+    60% { background-color: ${colors.secondary.dark}; }
+    70% { background-color: ${colors.error.main}; }
+    80% { background-color: ${colors.primary.light}; }
+    90% { background-color: ${colors.warning.main}; }
+    100% { background-color: ${colors.primary.dark}; }
 `;
 
 const glowPositionAnimation = keyframes`
@@ -15,28 +27,42 @@ const glowPositionAnimation = keyframes`
     100% { background-position: 0% 0%; }
 `;
 
+const glowOpacityAnimation = keyframes`
+    0% { background-color: rgba(34,34,34,1); }
+    50% { background-color: rgba(34,34,34,0); }
+    100% { background-color: rgba(34,34,34,1); }
+`;
+
 const GlowContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3;
+    width: 100vw;
+    height: 100vh;
+    animation: ${(props) => glowAnimation(props.theme.palette)} ${colorSpeed}s linear infinite alternate;
+`;
+
+const PositionMask = styled.div`
     position: absolute;
     top: 0;
     left: 0;
     z-index: -2;
     width: 100vw;
     height: 100vh;
-    animation: ${() => glowAnimation("#555")} 10s ease infinite alternate;
-`;
+    background-image: radial-gradient(transparent 0%, #222 45%);
+    background-size: 150% 150%;
+    animation: ${glowPositionAnimation} ${positionSpeed}s linear infinite;
+`
 
-// ${props => props.theme.colors.primary.light};
-
-const GlowMask = styled.div`
+const OpacityMask = styled.div`
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
     width: 100vw;
     height: 100vh;
-    background-image: radial-gradient(transparent 0%, #222 50%);
-    background-size: 150% 150%;
-    animation: ${glowPositionAnimation} 30s ease infinite;
+    animation: ${glowOpacityAnimation} ${opacitySpeed}s ease infinite;
 `
 
 const HoneycombGrid = styled.div`
@@ -94,7 +120,8 @@ const Background = () => {
   return (
     <>
     <GlowContainer />
-    <GlowMask />
+    <PositionMask />
+    <OpacityMask />
     <HoneycombGrid>
       {[...Array(rows)].map((_, i) => (
         <Row key={i}>
