@@ -1,3 +1,4 @@
+import { Palette } from '@mui/material';
 import { useState, useEffect } from 'react';
 import styled, { keyframes }  from 'styled-components';
 
@@ -5,7 +6,7 @@ const colorSpeed = 45;
 const positionSpeed = 60;
 const opacitySpeed = 40;
 
-const glowAnimation = (colors: object) => keyframes`
+const glowAnimation = (colors: Palette) => keyframes`
     10% { background-color: ${colors.primary.dark}; }
     20% { background-color: ${colors.warning.main}; }
     30% { background-color: ${colors.primary.light}; }
