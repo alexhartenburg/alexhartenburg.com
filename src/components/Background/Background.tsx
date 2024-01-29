@@ -22,7 +22,7 @@ const GlowContainer = styled.div`
     z-index: -2;
     width: 100vw;
     height: 100vh;
-    animation: ${props => glowAnimation("#555")} 10s ease infinite alternate;
+    animation: ${() => glowAnimation("#555")} 10s ease infinite alternate;
 `;
 
 // ${props => props.theme.colors.primary.light};
