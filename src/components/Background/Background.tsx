@@ -1,29 +1,43 @@
 import { useState, useEffect } from 'react';
 import styled, { keyframes }  from 'styled-components';
 
-const glowAnimation = keyframes`
-  0% { background-position: 0% 100%; }
-  1% { background-position: 13% 87%; }
-  48% { background-position: 87% 13%; }
-  49% { background-position: 100% 0%; }
-  50% { background-position: 100% 100%; }
-  51% { background-position: 87% 87%; }
-  98% { background-position: 13% 13%; }
-  99% { background-position: 0% 0%; }
-  100% { background-position: 0% 100%; }
+const glowAnimation = (props: string) => keyframes`
+    0% { background: #222; }
+    20% { background-color: ${props}; }
+    100% { background-color: #222; }
+`;
+
+const glowPositionAnimation = keyframes`
+    0% { background-position: 0% 0%; }
+    25% { background-position: 0% 100%; }
+    50% { background-position: 100% 0%; }
+    75% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 `;
 
 const GlowContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
-  width: 100vw;
-  height: 100vh;
-  background-size: 1000vw 1000vw;
-  background-image: radial-gradient(${props => props.theme.palette.primary.light} 1%, ${props => props.theme.palette.warning.dark} 40%, #222 60%);
-  animation: ${glowAnimation} 60s ease infinite alternate;
+    z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    animation: ${props => glowAnimation("#555")} 10s ease infinite alternate;
 `;
+
+// ${props => props.theme.colors.primary.light};
+
+const GlowMask = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(transparent 0%, #222 50%);
+    background-size: 150% 150%;
+    animation: ${glowPositionAnimation} 30s ease infinite;
+`
 
 const HoneycombGrid = styled.div`
   flex-wrap: wrap;
@@ -80,6 +94,7 @@ const Background = () => {
   return (
     <>
     <GlowContainer />
+    <GlowMask />
     <HoneycombGrid>
       {[...Array(rows)].map((_, i) => (
         <Row key={i}>
